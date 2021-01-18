@@ -1,0 +1,1 @@
+Un comprador se interesa por su producto, para mayor informacion ingrese al sistema y verifique la compra
