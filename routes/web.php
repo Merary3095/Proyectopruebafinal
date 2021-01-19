@@ -32,6 +32,7 @@ Route::post('/comprar', 'compraController@store');
 Route::get('listar_por_categoria/{categoria_id}','BuscarControler@listar_por');
 Route::resource('categorias', 'CategoriasController');
 Route::resource('productos', 'productosController');
+Route::post('productos/all', 'productosController@all');
 
 Auth::routes(['reset'=>false]);
 
@@ -57,3 +58,5 @@ Route::get('enviar', ['as' => 'enviar', function () {
 
     return "Se envío el email";
 }]);
+
+Route::post('/register/validar','VerificacionController@verificar')->name('register.verificar');

@@ -18,6 +18,10 @@ class productosController extends Controller
      *
      * @return \Illuminate\View\View
      */
+    public function all(request $request)
+    {
+        return "hola";
+    }
     public function index(Request $request)
     {
         $perPage = 25;

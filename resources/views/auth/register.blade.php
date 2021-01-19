@@ -26,16 +26,11 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-center">{{ __('Correo') }}</label>
+                    <label for="email" class="col-md-4 col-form-label text-md-center">{{ __('Correo') }}</label>
                             <br>
                             <div class="col-md-6 col-form-label">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+            <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
+                                <span id="error_email"></span>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -84,6 +79,42 @@
                             </div>
                         </div>
                     </form>
+<script>
+$(document).ready(function(){
+$('#email').blur(function(){
+    var error_email = '';
+    var email = $('#email').val();
+    var _token = $('input[name="_token"]').val();
+
+    if($.trim(email).length > 0)
+    {
+        $.ajax({
+            url:"{{ route('register.verificar')}}",
+            method:"POST",
+            data:{email:email, _token:_token},
+            success:function(result)
+            {
+                if(result == 'unique')
+                {
+                    console.log("paso por aca");
+                    $('#error_email').html('<label class="bg-success text-whte"><i class="fas fa-check"></i> Correo Libre</label>');
+                    $('#email').removeClass('has-error');
+                    $('#register').attr('disable', false);
+                }
+                else
+                {
+                    $('#error_email').html('<label class="bg-danger text-whte"><i class="fas fa-check"></i> Correo En Uso</label>');
+                    $('#email').addClass('has-error');
+                    $('#register').attr('disable', 'disable');
+                }
+            }
+        })
+    }
+});
+});
+</script>
+
+
                 </div>
             </div>
         </div>

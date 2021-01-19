@@ -73,9 +73,12 @@
                             <div class="pagination-wrapper"> {!! $productos->appends(['search' => Request::get('search')])->render() !!} </div>
                         </div>
 
+
                     </div>
                 </div>
             </div>
+
+
         </div>
     </div>
 </div>
