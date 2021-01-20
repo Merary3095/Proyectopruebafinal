@@ -13,17 +13,18 @@
 
                         <a href="{{ url('/productos') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Regresar</button></a>
 
-                        @if(Auth::id() == $producto->cliente_id)
+                        @if(Auth::id() == $producto->cliente_id && $producto->conse != 2)
                         @can('cliente')
                         <a href="{{ url('/productos/' . $producto->id . '/edit') }}" title="Edit producto"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar</button></a>
                         @endcan
-
-                        @if(is_null($producto->conse))
-                        @can('encargado')
-                        <a href="{{ url('/productos/' . $producto->id . '/edit') }}" title="Edit producto"><button class="btn btn-warning "><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Consignar</button></a>
-                        @endcan
                         @endif
 
+
+                        @can('encargado')
+                        <a href="{{ url('/productos/' . $producto->id . '/edit') }}" title="Edit producto"><button class="btn btn-warning "><i class="fa fa-pencil-square-o" aria-hidden="true"></i> cambiar estado</button></a>
+                        @endcan
+
+                        @if(Auth::id() == $producto->cliente_id && is_null($producto->conse) || $producto->conse == 0)
                         @can('cliente')
                         <form method="POST" action="{{ url('productos' . '/' . $producto->id) }}" accept-charset="UTF-8" style="display:inline">
                             {{ method_field('DELETE') }}
@@ -75,22 +76,36 @@
                                     @endif
                                     @if($producto->conse == '1')
                                      <tr>
-                                        <th> Consesionado </th>
+                                        <th> Estado </th>
                                         <td>
-                                            si
+                                            Aceptado
                                         </td>
                                     </tr>
 
-                                    @else
+                                    @elseif($producto->conse == '0')
                                      <tr>
-                                        <th> Consesionado </th>
+                                        <th> Estado </th>
                                         <td>
-                                            no
+                                            rechazado
                                         </td>
                                     </tr>
                                      <tr>
                                         <th> Razón </th>
                                         <td> {{ $producto->porque }} </td>
+                                    </tr>
+                                    @elseif($producto->conse == '2')
+                                    <tr>
+                                        <th> Estado </th>
+                                        <td>
+                                            consecionado
+                                        </td>
+                                    </tr>
+                                    @else
+                                     <tr>
+                                        <th> Estado </th>
+                                        <td>
+
+                                        </td>
                                     </tr>
                                      @endif
                                     @endif

@@ -60,7 +60,7 @@
                                             <div class="btn-group">
                                             <a href="{{ url('/productos/' . $item->id) }}" title="View producto"><button class="btn btn-info"><i class="fa fa-eye" aria-hidden="true" ></i> Mostrar</button></a>
                                             @can('cliente')
-                                            @if(Auth::id() == $item->cliente_id && $item->conse != 1)
+                                            @if(Auth::id() == $item->cliente_id && $item->conse != 2)
                                             <a href="{{ url('/productos/' . $item->id . '/edit') }}" title="Edit producto"><button class="btn btn-warning "><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar</button></a>
                                             @endif
                                             @endcan
@@ -72,8 +72,61 @@
                             </table>
                             <div class="pagination-wrapper"> {!! $productos->appends(['search' => Request::get('search')])->render() !!} </div>
                         </div>
+                        <form action="POST" action="productos/all" id="form1">
+                            @csrf
+                            <input type="hidden" name="id" value="1">
+                        </form>
+@can('encargado')
+                        <table class="table table-light table-hover">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>
+                                            Productos Aceptados
+                                        </th>
+                                    </tr>
+                                    <tr>
+
+                                        <th>Nombre</th>
+                                        <th>Descripcion</th>
+                                        <th>Precio</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody">
+
+                                </tbody>
+                            </table>
 
 
+
+
+                        <script>
+                            $(document).ready(function(){
+                                $.ajax({
+                                        url:'productos/all',
+                                        method:'POST',
+                                        data:$("#form1").serialize()
+                                }).done(function(res){
+
+                                    var arreglo = JSON.parse(res);
+                                    console.log(arreglo);
+                                    for(var x=0;x<arreglo.length;x++)
+                                    {
+                                        $ide = arreglo[x].id;
+
+                                        var todo='<tr><td>'+arreglo[x].Nombre+'</td>';
+                                        todo+='<td>'+arreglo[x].Descripcion+'</td>';
+                                        todo+='<td>'+arreglo[x].Precio+'</td>';
+                                        todo+='<td>'+'<a href="/productos/'+arreglo[x].id+'" title="View producto"><button class="btn btn-info">'+'Mostrar'+'</button></a>'+'</td>';
+                                        todo+='<td></td></tr>';
+                                        console.log(todo);
+
+                                        $('#tbody').append(todo);
+                                    }
+                                });
+                            });
+                        </script>
+                        @endcan
                     </div>
                 </div>
             </div>

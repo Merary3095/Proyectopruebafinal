@@ -20,7 +20,12 @@ class productosController extends Controller
      */
     public function all(request $request)
     {
-        return "hola";
+        $productos = \DB::table('productos')
+        ->select('productos.Nombre','productos.Descripcion','productos.Precio','productos.id')
+        ->WHERE('conse','LIKE','1')
+        ->orderBy('id','ASC')
+        ->get();
+        return response(json_encode($productos),200)->header('content-type','text/plain');
     }
     public function index(Request $request)
     {

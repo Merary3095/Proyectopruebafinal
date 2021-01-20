@@ -28,9 +28,7 @@
             @can('cliente')
             <li><a href="charts.html"><em class="icon-exchange">&nbsp;</em> Ventas</a></li>
             @endcan
-            @can('cliente')
-            <li><a href="elements.html"><em class="icon-shopping-cart">&nbsp;</em> Mis compras</a></li>
-            @endcan
+
             @can('supervisor')
             <li><a href="{{ url('/empleados') }}"><em class="icon-male">&nbsp;</em>Registrar Empleado</a></li>
             @endcan
