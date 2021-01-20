@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Storage;
 use App\Models\producto;
+use App\Models\Categoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -66,7 +67,12 @@ class productosController extends Controller
      */
     public function create()
     {
-        return view('productos.create');
+    	 $cat = \DB::table('categorias')
+        ->select('categorias.Nombre','categorias.id')
+        ->orderBy('id','ASC')
+        ->get();
+
+        return view('productos.create', compact('cat'));
     }
 
     /**
