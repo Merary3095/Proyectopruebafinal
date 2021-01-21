@@ -26,12 +26,12 @@
 
             <li><a href="{{ url('/productos') }}"><em class="icon-shopping-cart">&nbsp;</em> Productos</a></li>
             @can('cliente')
-            <li><a href="charts.html"><em class="icon-exchange">&nbsp;</em> Ventas</a></li>
+            <li><a href="{{ url('/preguntas') }}"><em class="icon-exchange">&nbsp;</em> Preguntas</a></li>
             @endcan
 
-            @can('supervisor')
+            @canany(['supervisor','encargado'])
             <li><a href="{{ url('/empleados') }}"><em class="icon-male">&nbsp;</em>Registrar Empleado</a></li>
-            @endcan
+            @endcanany
             @can('cliente')
             <li>
                 <form method="GET" action="{{ url('/productos') }}" role="ide">

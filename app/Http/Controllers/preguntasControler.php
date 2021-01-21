@@ -17,7 +17,7 @@ class preguntasControler extends Controller
 	$query="(
 					SELECT preguntas.id, 'PREGUNTA' as tipo, pregunta as cuestion, quien_p as quien
                     FROM preguntas JOIN productos ON preguntas.producto_id = productos.id
-                    WHERE preguntas.quien_p = $id and preguntas.pregunta is not null
+                    WHERE preguntas.pregunta is not null
                 )UNION(
                     SELECT preguntas.id, 'RESPUESTA' as tipo, respuesta as cuestion, quien_p as quien
                     FROM preguntas JOIN productos ON preguntas.producto_id = productos.id

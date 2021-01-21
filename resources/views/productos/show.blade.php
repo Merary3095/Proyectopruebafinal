@@ -24,7 +24,8 @@
                         <a href="{{ url('/productos/' . $producto->id . '/edit') }}" title="Edit producto"><button class="btn btn-warning "><i class="fa fa-pencil-square-o" aria-hidden="true"></i> cambiar estado</button></a>
                         @endcan
 
-                        @if(Auth::id() == $producto->cliente_id && is_null($producto->conse) || $producto->conse == 0)
+                        @if(Auth::id() == $producto->cliente_id)
+                        @if(is_null($producto->conse) || $producto->conse == 0)
                         @can('cliente')
                         <form method="POST" action="{{ url('productos' . '/' . $producto->id) }}" accept-charset="UTF-8" style="display:inline">
                             {{ method_field('DELETE') }}
@@ -32,6 +33,7 @@
                             <button type="submit" class="btn btn-danger btn-sm" title="Delete producto" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Eliminar</button>
                         </form>
                         @endcan
+                        @endif
                         @endif
                         <br/>
                         <br/>

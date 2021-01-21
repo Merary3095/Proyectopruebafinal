@@ -96,9 +96,18 @@
 <div class="form-group ">
     <label for="categoria_id" class="control-label">{{ 'Categoria' }}</label>
     <select class="form-control" name="categoria_id"  id="categoria_id">
-            <option value="1">Anime</option>
-            <option value="2" selected>Manga</option>
-            <option value="3">Peluches</option>
+            @foreach($cat as $categoria)
+
+         <option value="{{ $categoria->id }}"
+
+          @isset($productos->categoria[0]->Nombre)
+            @if($categoria->Nombre == $categoria->categoria[0]->Nombre)
+            selected
+            @endif
+          @endisset
+          >{{ $categoria->Nombre }}</option>
+
+         @endforeach
     </select>
 
 </div>

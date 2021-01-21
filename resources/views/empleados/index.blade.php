@@ -15,6 +15,7 @@
 
 @endif
 @can('supervisor')
+
 <a href="{{ url('empleados/create') }}" class="btn btn-success">Agregar Empleado</a>
 @endcan
 <br>

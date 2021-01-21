@@ -18,10 +18,14 @@
 
 	<div class="form-group">
 	<label for="rol" class="control-label">{{'Rol'}}</label>
-	<input type="text" class="form-control {{$errors->has('rol')?'is-invalid':'' }} "  name="rol" id="rol"
-	value="{{ isset($empleado->rol)?$empleado->rol:old('rol') }}">
+	<select class="form-control" name="rol"  id="rol">
+            <option value="cliente">cliente</option>
+            <option value="encargado" selected>encargado</option>
+            <option value="contador">contador</option>
+            <option value="supervisor" selected>supervisor</option>
 
-	{!! $errors->first('rol','<div class="invalid-feedback">:message</div>') !!}
+            </select>
+
 	</div>
 
 	<div class="form-group">
@@ -58,8 +62,10 @@
 
 
 	@can('supervisor')
+@if($Modo != 'editar')
 
-	<div class="card">
+						@else
+						<div class="card">
 							<div class="card-body">
 								<h5 class="card-title">Informacion del usuario</h5>
 								<p class="card-text">fecha y hora de registro: {{$empleado->created_at}}</p>
@@ -68,4 +74,6 @@
 
 							</div>
 						</div>
+
+	@endif
 	@endcan
